@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/bootstrap.bundle.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <link rel="shortcut icon" href="img/logo2.png" type="image/x-icon">
+    <title>Best CryptoArbitrage Platform</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
+*{
+    font-family:Mukta ;
+    color: white;
+}
+html, body{
+    overflow-x: hidden;
+}
+img{
+    pointer-events: none;
+}
+.aler{
+    position: fixed;
+    top: 50px;
+    right: 40px;
+    color: #000;
+    z-index: 10;   
+    animation: alerter 2s linear;
+    display: none;
+}
+@keyframes alerter {
+    0%{
+        opacity: 1;
+    }
+    70%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+#buy,#sell{
+    animation: show 2s linear;
+
+}
+@keyframes show {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+</style>
+<body style="background-color: black;">
+
+<p class="small p-3 rounded pill aler shadow-lg" id="alert" style="background-color: #10D078;"> Not Available in your Region</p>
+     
+  <div class="container p-5 p-lg-4">
+    <img src="img/logonew.png" alt="" style="max-width: 30vw; width: 43%;">
+  </div>  
+
+  
+<div class="container p-4 py-2 col-lg-4 mx-auto">
+Instantly Buy Binance Coin
+
+    <form action="" class="p-3 bg-white rounded mt-2">
+
+<div class="row ">
+    <div class="col text-secondary">Current Buy Price:</div>
+    <div class="col  justify-content-end"> <p class=" d-flex ms-auto" style="color: #10D078; font-weight: 700; text-align: right;">$<span id="price" style="color: #10D078;"></span></p></div>
+</div>
+<div class="input-group form-control align-items-center">
+ <input type="number" required  id="usdt" placeholder="Enter Amount USDT" class="form-control mb-2 shadow-none border-0 outline-none">  
+ <Span class="text-secondary ms-2 input-group-text " >USDT <img src="img/usdt.png" style="width: 15px;" class="ms-1" alt=""></Span> 
+</div>
+        
+
+        <label for="" class="small" style="color: #10D078; font-weight: 700;">You Get</label>
+    <div class="input-group form-control align-items-center">
+    <input type="number" required name="" disabled onkeyup="return false" id="output" class=" form-control shadow-none border-0 outline-none">
+    <Span class="text-secondary ms-2 input-group-text " id="coin" >BSC <img src="img/1839.png" style="width: 15px;" class="ms-1" alt=""></Span>
+</div>
+
+
+<input type="text" id="btcadd"  required class="form-control mt-3 shadow-none border-1 py-3 outline-none" placeholder="Binance Smart Chain Address (0x..)">
+
+<button id="buybtn" disabled class="btn btn-block w-100 mt-3 py-3 mb-2" style="background-color: #10D078;
+  ">Buy BSC</button>  
+  
+</form>
+  
+
+  <p class="small d-none m-0 p-0 mt-2" id="warning" style="font-size: 9pt; color:rgba(255, 255, 0, 0.801); text-align: center;"></p>
+
+  <p class="text-white mt-2" style="font-weight: 200; font-size: 9pt;">Note: Entering a wrong receive address can lead to permanent loss of fund.</p>
+
+</div>
+
+
+
+<br><br>
+<br>
+
+
+<footer class="px-4">
+    <form action="" class="col-xl-5 d-block mx-auto p-3">
+        <p class="lead ">Subscribe to Our Newsletter</p>
+      <input required type="email" placeholder="example@gmail.com" class="form-control shadow-none border-0 bg-dark outline-none shadow-0 text-white">
+    <button class="btn w-100 mt-2" style="background-color: #10D078; color: #000;">Subscribe</button>  
+
+
+
+    </form>
+    
+
+    <div class="row mt-5 mb-2">
+        <div class="col" onclick="Messade()">
+            <img src="img/gplay-.svg" id="gp"  class="img-fluid d-block ms-auto" alt="">
+        </div>
+        <div class="col" onclick="Messade()">
+            <img src="img/appstore-.svg"  id="ap" class="img-fluid" alt="">
+        </div>
+    </div>
+</footer>
+<br>
+<script>
+
+if(JSON.parse(localStorage.getItem('CurrentPrice')) == null){
+    window.location = 'index.html';
+}
+
+var NewPrice = JSON.parse(localStorage.getItem('CurrentPrice'));
+document.getElementById('price').innerText = parseFloat(NewPrice.BNB).toFixed(2) ;
+
+
+document.getElementById('usdt').addEventListener('keyup', ()=>{
+Address = document.getElementById('btcadd').value;
+  Amount =   document.getElementById('usdt').value
+  var Receive = document.getElementById('output').value = Amount/NewPrice.BNB;
+   var Details = {
+    'Coin': document.getElementById('coin').innerText,
+    'Amount':  Amount,
+    'Receive':Receive,
+   }
+
+   localStorage.setItem('Details', JSON.stringify(Details));
+
+  if(Amount < 100){
+    document.getElementById('warning').innerText = 'Minimum Buy Amount is 100 USDT';
+    document.getElementById('warning').classList.remove('d-none');
+    document.getElementById('buybtn').setAttribute('disabled',true);
+  }
+  else if (Amount >= 100){
+    document.getElementById('warning').innerText = '';
+    document.getElementById('warning').classList.add('d-none');
+    document.getElementById('buybtn').removeAttribute('disabled');
+  }
+
+  if(Amount > 50000){
+    document.getElementById('warning').innerText = 'Maximum Buy Amount is 50,000 USDT';
+    document.getElementById('warning').classList.remove('d-none');
+    document.getElementById('buybtn').setAttribute('disabled',true);
+  }
+
+
+
+})
+
+document.forms[0].addEventListener('submit', (e)=>{
+    e.preventDefault();
+    if (document.getElementById('btcadd').value != ""){
+        window.location = 'buy.html';
+    }
+})
+
+// document.getElementById('buybtn').addEventListener('click',()=>{
+//     window.location = 'buy.html';
+// })
+
+function Messade (){
+        document.getElementById('alert').style.display = 'block';
+        var Rem = setTimeout(RemoveMessage,2000);
+    }
+    function RemoveMessage(){
+        document.getElementById('alert').style.display = 'none';
+    }
+</script>
+</body>
+</html>
